@@ -1,12 +1,13 @@
 <template>
   <div >
-    <h1>手机端仓库测试</h1>
+    <h1>测试测试测试</h1>
+    <h2>红色感叹号</h2>
   </div>
 </template>
 
 <script>
 export default {
-
+  name: 'TestMobile',
 
 }
 </script>
@@ -14,4 +15,3 @@ export default {
 <style scoped>
 
 </style>
-
