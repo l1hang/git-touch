@@ -1,180 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- <meta charset="UTF-8">
- <title>Title</title>
- <style media="screen">
-  body {text-align:center}
-  canvas{ margin: 0 auto; background:white; border: 2px solid #e2e2e2; margin-top: 20px;}
- </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style media="screen">
+        body {
+            text-align: center
+        }
+
+        canvas {
+            margin: 0 auto;
+            background: white;
+            border: 2px solid #e2e2e2;
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
-<!--canvas的宽和高是写在标签里的，写在style里面不起作用-->
-<canvas id="v1" width="300" height="300"></canvas>
- 
-<canvas id="v2" width="300" height="300"></canvas>
- 
-<canvas id="v3" width="300" height="300"></canvas>
- 
-<script>
-    window.onload=function () {
-        initTaiji();
- 
-        initXielunyan();
- 
-        drawGouyuDemo();
-        
- 
-        function initTaiji(){
-            var canvas = document.getElementById('v1');
-            var ctx = canvas.getContext('2d'); //图形上下文——绘图接口
- 
-            var width = canvas.width, height = canvas.height;
- 
-            ctx.translate(width/2,height/2);
- 
-            setInterval(function(){
-                ctx.clearRect(0,0,width,height);  
- 
-                ctx.beginPath();
-                ctx.arc(0, 0, 60, 0, Math.PI * 2, false);
-                ctx.strokeStyle = 'black';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-                ctx.fillStyle = "white";
-                ctx.closePath();
-                ctx.fill();
- 
-                drawGouyu({radius: 30, x: 0, y: 0}, ctx); // 画勾玉
- 
-                ctx.beginPath();
-                ctx.moveTo(0, 0-30);
-                ctx.arc(0, 0-30, 10, 0, Math.PI * 2, false);
-                ctx.fillStyle = "white";
-                ctx.closePath();
-                ctx.fill();
- 
-                ctx.beginPath();
-                ctx.moveTo(0, 0+30);
-                ctx.arc(0, 0+30, 10, 0, Math.PI * 2, false);
-                ctx.fillStyle = "black";
-                ctx.closePath();
-                ctx.fill();
- 
-                ctx.rotate(5*Math.PI/180);
- 
-            },20)
-        }
- 
-        function initXielunyan(){
-            var canvas = document.getElementById('v2');
-            var ctx = canvas.getContext('2d');
- 
-            var width = canvas.width, height = canvas.height;
-            var color = "#CC3333";
- 
-            ctx.translate(width/2,height/2);
- 
-            setInterval(function(){
-                ctx.clearRect(0,0,width,height);  
- 
-                ctx.beginPath();
-                ctx.arc(0, 0, 100, 0, Math.PI * 2, false); // 写轮眼背景
-                var grd=ctx.createRadialGradient(0,0,60,0,0,100);
-                grd.addColorStop(0,color);
-                grd.addColorStop(1,"black");
-                ctx.fillStyle = grd;     
-                ctx.closePath();
-                ctx.fill();
- 
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.arc(0, 0, 10, 0, Math.PI * 2, false); // 半圆
-                ctx.fillStyle = "black";
-                ctx.closePath();
-                ctx.fill();
- 
-                drawGouyu({radius: 8, x: 4, y: 55, rotate: -40, bgColor: color}, ctx); // 下勾玉
-                
-                drawGouyu({radius: 8, x: -50, y: -16, rotate: 40, bgColor: color}, ctx); // 左勾玉
- 
-                drawGouyu({radius: 8, x: 50, y: -20, rotate: 190, bgColor: color}, ctx); // 右勾玉
- 
-                ctx.beginPath();
-                ctx.arc(0, 0, 50, 0, Math.PI * 2, false); // 写轮眼线
-                ctx.strokeStyle = 'black';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-                ctx.closePath();
-                
-                ctx.rotate(6*Math.PI/180);
- 
-            },20)
-        }
- 
-        function drawGouyuDemo(){
-            var canvas = document.getElementById('v3');
-            var ctx = canvas.getContext('2d');
- 
-            var width = canvas.width, height = canvas.height;
-            var color = "#CC3333";
- 
- 
-            drawGouyu({radius: 5, x: 20, y: 50}, ctx);
-            drawGouyu({radius: 5, x: 40, y: 50}, ctx);
-            drawGouyu({radius: 5, x: 60, y: 50}, ctx);
-            drawGouyu({radius: 5, x: 80, y: 50}, ctx);
-                
-        }
- 
-        function drawGouyu(params,ctx){
-            var radius = params.radius?params.radius:30,
-                x = params.x?params.x:0,
-                y = params.y?params.y:0,
-                color = params.color?params.color:'black';
-                bgColor = params.bgColor?params.bgColor:'white';
-                rotate = params.rotate?params.rotate:0;
-            
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.arc(x, y, radius*2, rotateSum(90 + rotate), rotateSum(270 + rotate), false); // 半圆
-            ctx.fillStyle = color;
-            ctx.closePath();
-            ctx.fill();
- 
-            ctx.beginPath();
-            var point1 = rotatePoint(x,y,radius,rotate);
-            //console.log(point1);
-            ctx.moveTo(point1.x, point1.y);
-            ctx.arc(point1.x, point1.y, radius, rotateSum(0), rotateSum(360), false); // 上小圆
-            ctx.fillStyle = color;
-            ctx.closePath();
-            ctx.fill();
- 
-            ctx.beginPath();
-            var point2 = rotatePoint(x,y,radius,rotate + 180);
-            //console.log(point2);
-            ctx.moveTo(point2.x, point2.y);
-            ctx.arc(point2.x, point2.y, radius, rotateSum(0), rotateSum(360), false); // 下小圆
-            ctx.fillStyle = bgColor;
-            ctx.closePath();
-            ctx.fill();
- 
- 
-            function rotateSum(num){
-                return Math.PI * num / 180;
+    <!-- 血轮眼 -->
+    <!--canvas的宽和高是写在标签里的，写在style里面不起作用-->
+    <canvas id="v1" width="300" height="300"></canvas>
+
+    <canvas id="v2" width="300" height="300"></canvas>
+
+    <canvas id="v3" width="300" height="300"></canvas>
+
+    <script>
+        window.onload = function () {
+            initTaiji();
+
+            initXielunyan();
+
+            drawGouyuDemo();
+
+
+            function initTaiji() {
+                var canvas = document.getElementById('v1');
+                var ctx = canvas.getContext('2d'); //图形上下文——绘图接口
+
+                var width = canvas.width,
+                    height = canvas.height;
+
+                ctx.translate(width / 2, height / 2);
+
+                setInterval(function () {
+                    ctx.clearRect(0, 0, width, height);
+
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 60, 0, Math.PI * 2, false);
+                    ctx.strokeStyle = 'black';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    ctx.fillStyle = "white";
+                    ctx.closePath();
+                    ctx.fill();
+
+                    drawGouyu({
+                        radius: 30,
+                        x: 0,
+                        y: 0
+                    }, ctx); // 画勾玉
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0 - 30);
+                    ctx.arc(0, 0 - 30, 10, 0, Math.PI * 2, false);
+                    ctx.fillStyle = "white";
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0 + 30);
+                    ctx.arc(0, 0 + 30, 10, 0, Math.PI * 2, false);
+                    ctx.fillStyle = "black";
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.rotate(5 * Math.PI / 180);
+
+                }, 20)
             }
- 
-            function rotatePoint(x,y,r,Angle){ //Angle为正时逆时针转bai动, 单位为弧度
-                return {
-                    x : x + Math.sin(Angle * 2 * Math.PI / 360) * r,
-                    y : y - Math.cos(Angle * 2 * Math.PI / 360) * r
+
+            function initXielunyan() {
+                var canvas = document.getElementById('v2');
+                var ctx = canvas.getContext('2d');
+
+                var width = canvas.width,
+                    height = canvas.height;
+                var color = "#CC3333";
+
+                ctx.translate(width / 2, height / 2);
+
+                setInterval(function () {
+                    ctx.clearRect(0, 0, width, height);
+
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 100, 0, Math.PI * 2, false); // 写轮眼背景
+                    var grd = ctx.createRadialGradient(0, 0, 60, 0, 0, 100);
+                    grd.addColorStop(0, color);
+                    grd.addColorStop(1, "black");
+                    ctx.fillStyle = grd;
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.arc(0, 0, 10, 0, Math.PI * 2, false); // 半圆
+                    ctx.fillStyle = "black";
+                    ctx.closePath();
+                    ctx.fill();
+
+                    drawGouyu({
+                        radius: 8,
+                        x: 4,
+                        y: 55,
+                        rotate: -40,
+                        bgColor: color
+                    }, ctx); // 下勾玉
+
+                    drawGouyu({
+                        radius: 8,
+                        x: -50,
+                        y: -16,
+                        rotate: 40,
+                        bgColor: color
+                    }, ctx); // 左勾玉
+
+                    drawGouyu({
+                        radius: 8,
+                        x: 50,
+                        y: -20,
+                        rotate: 190,
+                        bgColor: color
+                    }, ctx); // 右勾玉
+
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 50, 0, Math.PI * 2, false); // 写轮眼线
+                    ctx.strokeStyle = 'black';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    ctx.closePath();
+
+                    ctx.rotate(6 * Math.PI / 180);
+
+                }, 20)
+            }
+
+            function drawGouyuDemo() {
+                var canvas = document.getElementById('v3');
+                var ctx = canvas.getContext('2d');
+
+                var width = canvas.width,
+                    height = canvas.height;
+                var color = "#CC3333";
+
+
+                drawGouyu({
+                    radius: 5,
+                    x: 20,
+                    y: 50
+                }, ctx);
+                drawGouyu({
+                    radius: 5,
+                    x: 40,
+                    y: 50
+                }, ctx);
+                drawGouyu({
+                    radius: 5,
+                    x: 60,
+                    y: 50
+                }, ctx);
+                drawGouyu({
+                    radius: 5,
+                    x: 80,
+                    y: 50
+                }, ctx);
+
+            }
+
+            function drawGouyu(params, ctx) {
+                var radius = params.radius ? params.radius : 30,
+                    x = params.x ? params.x : 0,
+                    y = params.y ? params.y : 0,
+                    color = params.color ? params.color : 'black';
+                bgColor = params.bgColor ? params.bgColor : 'white';
+                rotate = params.rotate ? params.rotate : 0;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.arc(x, y, radius * 2, rotateSum(90 + rotate), rotateSum(270 + rotate), false); // 半圆
+                ctx.fillStyle = color;
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.beginPath();
+                var point1 = rotatePoint(x, y, radius, rotate);
+                //console.log(point1);
+                ctx.moveTo(point1.x, point1.y);
+                ctx.arc(point1.x, point1.y, radius, rotateSum(0), rotateSum(360), false); // 上小圆
+                ctx.fillStyle = color;
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.beginPath();
+                var point2 = rotatePoint(x, y, radius, rotate + 180);
+                //console.log(point2);
+                ctx.moveTo(point2.x, point2.y);
+                ctx.arc(point2.x, point2.y, radius, rotateSum(0), rotateSum(360), false); // 下小圆
+                ctx.fillStyle = bgColor;
+                ctx.closePath();
+                ctx.fill();
+
+
+                function rotateSum(num) {
+                    return Math.PI * num / 180;
                 }
+
+                function rotatePoint(x, y, r, Angle) { //Angle为正时逆时针转bai动, 单位为弧度
+                    return {
+                        x: x + Math.sin(Angle * 2 * Math.PI / 360) * r,
+                        y: y - Math.cos(Angle * 2 * Math.PI / 360) * r
+                    }
+                }
+
+
             }
- 
- 
         }
-    }
- </script>
+    </script>
 </body>
+
 </html>

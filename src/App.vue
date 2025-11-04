@@ -1,21 +1,26 @@
 <template>
-  <div >
-    <h1>手机端仓库测试</h1>
-    <test></test>
-  </div>
+    <Social/>
 </template>
 
 <script>
-import Test from './components/test.vue'
+import Social from './components/Social.vue'
 export default {
   components: {
-    Test
+    Social
   },
   name: 'App',
 
 }
 </script>
 
-<style scoped>
+<style  lang="scss">
+body{
+  height: 100%;
+  margin: 0;
+  background: #c5c5c5;
+}
+* {
+  box-sizing: border-box;
+}
 
 </style>
