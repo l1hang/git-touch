@@ -1,4 +1,5 @@
 <template>
+  <!-- 闪电背景特效 -->
   <canvas ref="canvasRef" class="w-full h-full block mix-blend-screen relative"></canvas>
 </template>
 

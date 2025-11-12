@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "FZYaSongS-H-GB";
+  src: url("../font/FangZhengTeYaSong.TTF");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "ZhanKuKeHuangYouTi";
+  src: url("../font/ZhanKuKeHuangYou.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "YouSheBiaoTiHei";
+  src: url("../font/YouSheBiaoTiHei-2.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SiYuanSongTi";
+  src: url("../font/SourceHanSerifCN-Heavy.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SiYuanHeiTi";
+  src: url("../font/SourceHanSerifCN-Medium.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "AlimamaShuHeiTi-Bold";
+  src: url("../font/AlimamaShuHeiTi-Bold.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "PangMenZhengDao";
+  src: url("../font/PangMenZhengDao.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SourceHanSansCN-Bold";
+  src: url("../font/SourceHanSansCN-Bold.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "PangMenZhengDaoBiaoTiTiMianFeiBan";
+  src: url("../font/PangMenZhengDaoBiaoTiTiMianFeiBan-2.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
