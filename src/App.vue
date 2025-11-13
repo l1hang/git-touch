@@ -1,15 +1,10 @@
 <template>
-    <Social/>
+     <router-view />
 </template>
 
 <script>
-import Social from './components/Social.vue'
 export default {
-  components: {
-    Social
-  },
   name: 'App',
-
 }
 </script>
 

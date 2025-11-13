@@ -39,6 +39,9 @@
       </div>
       <!-- <div class="text-projects">4444</div> -->
     </div>
+    <div class="back-btn">
+      <el-button  type="info" round @click="turnToHome">返回</el-button>
+    </div>
   </div>
 </template>
 
@@ -179,6 +182,11 @@ export default {
       ]
     };
   },
+  methods: {
+    turnToHome() {
+      this.$router.push('/');
+    }
+  }
 };
 </script>
 
@@ -243,6 +251,12 @@ export default {
       /* height: 500px; */
       color: rgba(236, 252, 255, 0.5);
     }
+  }
+  .back-btn {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    z-index: 3;
   }
 }
 </style>
